@@ -6,29 +6,35 @@ import {useNavigate} from 'react-router-dom';
 
 function Reservar(){
     const [email, setEmail] = useState("");
-	const [password, setpassword] = useState("");
+	const [password, setPassword] = useState("");
+    const [nome, setNome] = useState("");
+    const [foto, setFoto] = useState("");
+
     
-    const navigate = useNavigate();
     function fazerReserva(event){
-        
+
+       
         event.preventDefault();
-        const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",{
+        const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",{
             email: email,
+            name: nome,
+            image: foto,
             password: password
         });
+        
+        
         
         requisicao.then(tratarSucesso);
         requisicao.catch(tratarErro);
 
         function tratarSucesso(resposta) {
             console.log ("sucesso " + resposta.data)
-            navigate('/hoje');
         }
 
         function tratarErro(erro) {
             console.log("Status code: " + erro.response.status); // Ex: 404
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
-        }
+}
     }
 
 
@@ -36,21 +42,21 @@ function Reservar(){
         <div>
         <form onSubmit={fazerReserva}>
 		        <input type="email" placeholder='email' value={email} onChange={e => setEmail(e.target.value)} />
-                <input type="password" placeholder='senha' value={password} onChange={e => setpassword(e.target.value)} />
-            <button type="submit">Entrar</button>
+                <input type="password" placeholder='senha' value={password} onChange={e => setPassword(e.target.value)} />
+                <input type="nome" placeholder='nome' value={nome} onChange={e => setNome(e.target.value)} />
+                <input type="foto" placeholder='foto' value={foto} onChange={e => setFoto(e.target.value)} />
+            <button type="submit">Cadastrar</button>
 		</form>
         </div>
     )
 }
 
-
-export default function Login(){
+export default function Cadastro(){
     const navigate = useNavigate();
 
     function cadastrar(){
-        navigate('/cadastro');
-    } 
-
+        navigate('/');
+    }
     return (
         <>
         <ButtonComponent>
@@ -59,9 +65,8 @@ export default function Login(){
             <h1>TrackIt</h1>
         </div>
         <Reservar />
-        <p onClick={cadastrar}>Não tem uma conta? Cadastre-se!</p>
+        <p onClick={cadastrar}>Já tem uma conta? Faça login!</p>
         </ButtonComponent>
-        
         </>
     )
 }
