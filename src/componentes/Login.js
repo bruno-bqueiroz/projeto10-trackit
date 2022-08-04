@@ -3,10 +3,14 @@ import {useState} from 'react';
 import axios from "axios";
 import {useNavigate} from 'react-router-dom';
 
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
+
 
 function Reservar(){
     const [email, setEmail] = useState("");
 	const [password, setpassword] = useState("");
+    const { tasks, setTasks } = useContext(UserContext);
     
     const navigate = useNavigate();
     function fazerReserva(event){
@@ -20,8 +24,9 @@ function Reservar(){
         requisicao.catch(tratarErro);
 
         requisicao.then((res) =>{
+            setTasks(res);
             
-            navigate('/hoje', {state : res.data});
+            navigate('/hoje');
         });
 
         function tratarErro(erro) {
@@ -75,7 +80,6 @@ const ButtonComponent = styled.div`
     background-color: #FFFFFF;
     
     
-
     p{
         font-size: 4vw;
         color: #52B6FF;
@@ -120,7 +124,6 @@ const ButtonComponent = styled.div`
             outline: 0;
         }
     }
-
     div{
         width: 90vw;
         height: auto;

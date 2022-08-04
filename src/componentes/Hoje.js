@@ -2,20 +2,17 @@ import styled from "styled-components"
 import Menu from "./Menu";
 import Topo from "./Topo";
 import {useState, useEffect} from "react";
-import {useLocation} from 'react-router-dom';
 import axios from "axios";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 
 
-function HabitosDoDia({setFoto}){
+function HabitosDoDia(){
+    const { tasks, setTasks } = useContext(UserContext);
+    const token = tasks.data.token;
     const [feito, setFeito] = useState(false);
     const dayjs = require('dayjs');
-    const location = useLocation();
-    console.log(location.state);
-
-    setFoto(location.state.image);
-    
-    const token = location.state.token;
 
     useEffect(()=>{
         const config = {
@@ -97,7 +94,6 @@ const Habito = styled.div`
     display: flex;
     justify-content: space-around;
     
-
 `
 const Icone = styled.div`
     width: 15vh;
@@ -123,7 +119,6 @@ height: 100%;
 padding-left: 10px;
 display: flex;
 flex-direction: column;
-
 justify-content: center;
     h3{
     color: #666666;
@@ -168,4 +163,3 @@ height: auto;
 min-height: 79vh;
 background-color:#E5E5E5;
 `
-

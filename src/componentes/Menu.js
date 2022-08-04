@@ -3,6 +3,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 
+
 export default function Menu(){
     const percentage = 67;
     const navigate = useNavigate();

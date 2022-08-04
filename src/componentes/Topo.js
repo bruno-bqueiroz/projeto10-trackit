@@ -1,14 +1,17 @@
 import styled from "styled-components";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
-export default function Topo(foto){
-    console.log(foto)
+export default function Topo(){
+    const { tasks, setTasks } = useContext(UserContext);
+    const imagem = tasks.data.image;
     
     return(
         <>
             <Topos>
                 <h1>TrackIt</h1>
                     <span>
-                    <img src={foto.foto}/>
+                    <img src={imagem}/>
                 </span>
            </Topos>
         </>
@@ -40,7 +43,6 @@ const Topos = styled.div `
     height: 100%;
     object-fit: cover;
     }
-
     h1{
     color: #FFFFFF;
     margin-top: 0px;
