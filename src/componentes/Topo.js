@@ -5,7 +5,6 @@ import UserContext from "../contexts/UserContext";
 export default function Topo(){
     const { tasks, setTasks } = useContext(UserContext);
     const imagem = tasks.data.image;
-    
     return(
         <>
             <Topos>
