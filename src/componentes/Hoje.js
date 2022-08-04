@@ -1,77 +1,150 @@
 import styled from "styled-components"
+import Menu from "./Menu";
+import Topo from "./Topo";
+import {useState} from "react";
+import dayjs from "dayjs";
+
+
+
+function HabitosDoDia(){
+    const [feito, setFeito] = useState(false);
+    const dayjs = require('dayjs');
+   
+
+    
+    function click(){
+        setFeito(!feito)
+    }
+    
+    
+    return (
+        <>
+        <Dia>
+        
+            <h2>Quinta, {dayjs().format('DD/MM')}</h2>
+            {!feito ?
+            <p>Nenhum hábito concluído ainda</p>
+            : <OK>67% dos hábitos concluídos</OK>
+            }
+        </Dia>
+        <Habito>
+            <Caixa1>
+            <h3>Ler 1 capítulo de livro</h3>
+            <p>Sequência atual: 3 dias</p>
+            <p>Seu recorde: 5 dias</p>
+            </Caixa1>
+            {!feito ?
+            <Icone onClick={click}>
+                <ion-icon name="checkbox"></ion-icon>
+            </Icone>
+            :
+            <IconeOk onClick={click}>
+                <ion-icon name="checkbox"></ion-icon>
+            </IconeOk>
+            }
+        </Habito>
+        
+        </>
+    )
+}
+
+const Dia = styled.div`
+    box-sizing: border-box;
+    width: 100%;
+    height: 10vh;
+    padding-left: 10px;
+    padding-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
+    h2 {
+        font-weight: 100;
+        color: #126BA5;
+        margin: 0;
+    }
+    p{
+        margin: 0;
+        color: #BABABA;
+    }
+`
+const Habito = styled.div`
+    width: 100%;
+    height: 15vh;
+    margin-top: 3vh;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-around;
+    
+
+`
+const Icone = styled.div`
+    width: 15vh;
+    height: 15vh;
+    ion-icon {
+    color: #E7E7E7;
+    width: 100%;
+    height: 100%;
+    }
+`
+const IconeOk = styled.div`
+    width: 15vh;
+    height: 15vh;
+    ion-icon {
+    color: #8FC549;
+    width: 100%;
+    height: 100%;
+    }
+`
+const Caixa1 = styled.div`
+width: 60%;
+height: 100%;
+padding-left: 10px;
+display: flex;
+flex-direction: column;
+
+justify-content: center;
+    h3{
+    color: #666666;
+    font-weight: 500;
+    margin: 0;
+}
+p{
+    margin: 0;
+    color: #666666;
+    font-size: 3vw;
+}
+`
+const OK = styled.b`
+    margin: 0;
+    color: #8FC549;
+    font-size: 3vw;
+`
+
+
 
 export default function Hoje(){
+   
     return (
-        <Container>
-            <Topo>
-            <h1>TrackIt</h1>
-           <span>
-                <img src="https://thenexus.one/wp-content/uploads/2022/05/Michael-Scott-Smiling-e1653333329157-696x348.jpg" alt="foto de perfil"/>
-           </span>
-           </Topo>
-           <Menu>
-            <p>Hábitos</p><span></span><p>Histórico</p>
-           </Menu>
+        <>
+        <Topo />
+        <Container>    
+            <HabitosDoDia />
         </Container>
+        <Menu />
+        </>
     )
 }
 
 const Container = styled.div`
 box-sizing: border-box;
+margin-top: 11vh;
+margin-bottom: 10vh;
+padding-left: 5vw;
+padding-right: 5vw;
 width: 100vw;
-height: 100vh;
-background-color:#E5E5E5 ;
+height: auto;
+min-height: 79vh;
+background-color:#E5E5E5;
 `
 
-const Topo = styled.div `
-    box-sizing: border-box;
-    width: 100vw;
-    height: 11vh;
-    position: fixed;
-    top: 0;
-    background-color: #126BA5;
-    padding-top: 1vh;
-    padding-left: 5vw;
-    padding-right: 5vw;
-    display: flex;
-    justify-content: space-between;
-    z-index: 1;
-    span {
-    display: block;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 9vh;
-    height: 9vh;
-    }
-    span img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    }
-
-    h1{
-    color: #FFFFFF;
-    margin-top: 0px;
-    margin-left: -2vw;
-    font-size: 7vh;
-    font-family: 'Playball', cursive;
-    font-weight: 400;
-    }
-
-`
-const Menu = styled.div`
-    box-sizing: border-box;
-    width: 100vw;
-    height: 11vh;
-    position: fixed;
-    bottom: 0;
-    display: flex;
-    justify-content: space-around;
-    background-color: #FFFFFF;
-    p{
-        color: #52B6FF;
-        font-weight:400;
-        font-size: 3vh;
-    }
-
-`
