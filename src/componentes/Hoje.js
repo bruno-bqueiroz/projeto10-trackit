@@ -1,15 +1,36 @@
 import styled from "styled-components"
 import Menu from "./Menu";
 import Topo from "./Topo";
-import {useState} from "react";
-import dayjs from "dayjs";
+import {useState, useEffect} from "react";
+import {useLocation} from 'react-router-dom';
+import axios from "axios";
 
 
 
-function HabitosDoDia(){
+function HabitosDoDia({setFoto}){
     const [feito, setFeito] = useState(false);
     const dayjs = require('dayjs');
-   
+    const location = useLocation();
+    console.log(location.state);
+
+    setFoto(location.state.image);
+    
+    const token = location.state.token;
+
+    useEffect(()=>{
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config
+        );
+        promise.then(res =>{
+            console.log(res.data);
+        })
+
+    }, [])
 
     
     function click(){
@@ -123,13 +144,13 @@ const OK = styled.b`
 
 
 
-export default function Hoje(){
+export default function Hoje({foto, setFoto}){
    
     return (
         <>
-        <Topo />
+        <Topo foto= {foto} />
         <Container>    
-            <HabitosDoDia />
+            <HabitosDoDia setFoto = {setFoto} />
         </Container>
         <Menu />
         </>

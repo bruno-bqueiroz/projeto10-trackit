@@ -1,12 +1,14 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-export default function Topo(){
+export default function Topo(foto){
+    console.log(foto)
+    
     return(
         <>
             <Topos>
                 <h1>TrackIt</h1>
                     <span>
-                    <img src="https://thenexus.one/wp-content/uploads/2022/05/Michael-Scott-Smiling-e1653333329157-696x348.jpg" alt="foto de perfil"/>
+                    <img src={foto.foto}/>
                 </span>
            </Topos>
         </>

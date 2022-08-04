@@ -17,13 +17,12 @@ function Reservar(){
             password: password
         });
         
-        requisicao.then(tratarSucesso);
         requisicao.catch(tratarErro);
 
-        function tratarSucesso(resposta) {
-            console.log ("sucesso " + resposta.data)
-            navigate('/hoje');
-        }
+        requisicao.then((res) =>{
+            
+            navigate('/hoje', {state : res.data});
+        });
 
         function tratarErro(erro) {
             console.log("Status code: " + erro.response.status); // Ex: 404
@@ -35,8 +34,8 @@ function Reservar(){
     return(
         <div>
         <form onSubmit={fazerReserva}>
-		        <input type="email" placeholder='email' value={email} onChange={e => setEmail(e.target.value)} />
-                <input type="password" placeholder='senha' value={password} onChange={e => setpassword(e.target.value)} />
+		        <input type="email" placeholder='email' value={email} required onChange={e => setEmail(e.target.value)} />
+                <input type="password" placeholder='senha' value={password} required onChange={e => setpassword(e.target.value)} />
             <button type="submit">Entrar</button>
 		</form>
         </div>
@@ -74,6 +73,9 @@ const ButtonComponent = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #FFFFFF;
+    
+    
+
     p{
         font-size: 4vw;
         color: #52B6FF;

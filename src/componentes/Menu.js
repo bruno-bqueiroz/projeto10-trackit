@@ -6,14 +6,18 @@ import { useNavigate } from 'react-router-dom';
 export default function Menu(){
     const percentage = 67;
     const navigate = useNavigate();
+
     function habitos(){
         navigate('/habitos');
+    }
+    function historico(){
+        navigate('/historico');
     }
 
     return (
         <>
             <Menus>
-                <p onClick={habitos}>Hábitos</p><div><CircularProgressbar value={percentage} text={`${percentage}%`} /></div><p>Histórico</p>
+                <p onClick={habitos}>Hábitos</p><div><CircularProgressbar value={percentage} text={`${percentage}%`} /></div><p onClick={historico}>Histórico</p>
             </Menus>
         </>
     )
