@@ -30,7 +30,7 @@ export default function Dias ({
     )
 }
 
-const Dia = styled.button`
+const Dia = styled.div`
     width: 8vw;
     height: 8vw;
     margin-top: 1vh;

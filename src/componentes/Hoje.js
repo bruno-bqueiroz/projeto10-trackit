@@ -11,6 +11,7 @@ import UserContext from "../contexts/UserContext";
 function HabitosDoDia(){
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
+
     const [feito, setFeito] = useState(false);
     const dayjs = require('dayjs');
 
@@ -39,7 +40,7 @@ function HabitosDoDia(){
         <>
         <Dia>
         
-            <h2>Quinta, {dayjs().format('DD/MM')}</h2>
+            <h2>Sexta, {dayjs().format('DD/MM')}</h2>
             {!feito ?
             <p>Nenhum hábito concluído ainda</p>
             : <OK>67% dos hábitos concluídos</OK>

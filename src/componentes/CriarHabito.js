@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import Dias from "./Dias";
 import axios from "axios";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 
 
@@ -42,48 +44,59 @@ function Reservar({setAdicionar}){
     const [array, setArray] = useState([]);
     console.log(array);
 
-    function click(){
+    const { tasks, setTasks } = useContext(UserContext);
+    const token = tasks.data.token;
+
+
+    function fecharCard(){
         setAdicionar(false);
+    }
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
     }
     
     function fazerReserva(event){
-        console.log(array)
+        console.log(array);
+        console.log("chamou");
 
         event.preventDefault();
-        const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{
+        if(habito.length>0){
+        const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{   
             name: habito,
-            days: array // segunda, quarta e sexta
-        });
-        requisicao.then(tratarSucesso);
+            days: array
+        },config);
+        requisicao.then(res =>{
+            console.log(res);
+        })
         requisicao.catch(tratarErro);
         
 
-        function tratarSucesso(resposta) {
-            console.log ("sucesso " + resposta.data)
-            
-        }
+        
 
         function tratarErro(erro) {
             console.log("Status code: " + erro.response.status); // Ex: 404
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
 }
-    }
-
+}else return alert("você deve dar um nome ao habito!")
+    
+}
     return(
         <div>
-        <form onSubmit={fazerReserva} >
+        <form  >
 		        <input type="text" placeholder='nome do hábito' value={habito} required onChange={e => setHabito(e.target.value)} />
                 <Caixa1>
                 {diasDaSemana.map ((value, index)=>
                     <Dias key={index} dia = {value.nome} numero = {value.numero}
-                    array = {array} setArray = {setArray}
-                    value={array} onChange={e => setArray(e.target.value)} />
+                    array = {array} setArray = {setArray} type="text"
+                     value={array} onChange={e => setArray(e.target.value)} />
                     )}
                 </Caixa1>
             
             <Botoes>
-            <Botao1 onClick={click}>Cancelar</Botao1>
-            <Botao2 type="submit">Salvar</Botao2>
+            <Botao1 type = "button" onClick={fecharCard}>Cancelar</Botao1>
+            <Botao2 type="submit" onClick={fazerReserva}>Salvar</Botao2>
             </Botoes>
         </form>
         </div>

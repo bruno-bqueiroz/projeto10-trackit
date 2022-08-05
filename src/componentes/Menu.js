@@ -11,6 +11,9 @@ export default function Menu(){
     function habitos(){
         navigate('/habitos');
     }
+    function hoje(){
+        navigate('/hoje')
+    }
     function historico(){
         navigate('/historico');
     }
@@ -18,7 +21,14 @@ export default function Menu(){
     return (
         <>
             <Menus>
-                <p onClick={habitos}>Hábitos</p><div><CircularProgressbar value={percentage} text={`${percentage}%`} /></div><p onClick={historico}>Histórico</p>
+                <p onClick={habitos}>Hábitos</p>
+                <div onClick = {hoje}>
+                    <CircularProgressbar value={percentage} text={`Hoje`}  styles={{pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                    textColor: '#FFFFFF',
+                    trailColor: '#FFFFFF',
+                    backgroundColor: '#FFFFFF',}} />
+                </div>
+                <p onClick={historico}>Histórico</p>
             </Menus>
         </>
     )
@@ -35,6 +45,7 @@ const Menus = styled.div`
     display: flex;
     justify-content: space-between;
     background-color: #FFFFFF;
+    
     p{
         color: #52B6FF;
         font-weight:400;
