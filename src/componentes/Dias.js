@@ -4,17 +4,17 @@ import { useState } from "react";
 export default function Dias ({
     dia,
     numero,
-    array,
-    setArray
+    days,
+    setDays
 }){
     const [cor, setCor] = useState(false);
 
     function click(numero){
-        if(!array.includes(numero)){
-        const transfer = [...array, numero];
-            setArray (transfer);
+        if(!days.includes(numero)){
+        const transfer = [...days, numero];
+            setDays (transfer);
         setCor(true);
-        }else if(array.includes(numero)){
+        }else if(days.includes(numero)){
             setCor(false);
         }
     }

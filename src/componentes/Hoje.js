@@ -29,7 +29,6 @@ function HabitosDoDia(){
         })
 
     }, [])
-
     
     function click(){
         setFeito(!feito)

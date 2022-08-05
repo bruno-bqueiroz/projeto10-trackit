@@ -11,14 +11,18 @@ import UserContext from "../contexts/UserContext";
 const diasDaSemana = [
     {
     nome : "D",
-    numero : 1
+    numero : 7
     },
     {
     nome : "S",
-    numero : 2
+    numero : 1
     },
     {
     nome : "T",
+    numero : 2
+    },
+    {
+    nome : "Q",
     numero : 3
     },
     {
@@ -26,23 +30,23 @@ const diasDaSemana = [
     numero : 4
     },
     {
-    nome : "Q",
+    nome : "S",
     numero : 5
     },
     {
     nome : "S",
     numero : 6
     },
-    {
-    nome : "S",
-    numero : 7
-    },
     
 ]
-function Reservar({setAdicionar}){
+function Reservar({
+    setAdicionar,
+    controle,
+    setControle
+}){
     const [habito, setHabito] = useState("");
-    const [array, setArray] = useState([]);
-    console.log(array);
+    const [days, setDays] = useState([]);
+    console.log(days);
 
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
@@ -58,17 +62,20 @@ function Reservar({setAdicionar}){
     }
     
     function fazerReserva(event){
-        console.log(array);
-        console.log("chamou");
-
+        console.log(days);
+        
         event.preventDefault();
         if(habito.length>0){
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{   
             name: habito,
-            days: array
+            days: days
         },config);
         requisicao.then(res =>{
             console.log(res);
+            setAdicionar(false);
+            setControle(!controle)
+            
+            
         })
         requisicao.catch(tratarErro);
         
@@ -89,8 +96,8 @@ function Reservar({setAdicionar}){
                 <Caixa1>
                 {diasDaSemana.map ((value, index)=>
                     <Dias key={index} dia = {value.nome} numero = {value.numero}
-                    array = {array} setArray = {setArray} type="text"
-                     value={array} onChange={e => setArray(e.target.value)} />
+                    days = {days} setDays = {setDays} type="text"
+                     value={days} onChange={e => setDays(e.target.value)} />
                     )}
                 </Caixa1>
             
@@ -158,11 +165,16 @@ const Botao2 = styled.button`
 
 
 
-export default function CriarHabito({setAdicionar}){
+export default function CriarHabito({setAdicionar,
+    controle,
+    setControle}){
     return (
         <>
             <Caixa>
-                <Reservar setAdicionar = {setAdicionar}/>
+                <Reservar
+    controle = {controle}
+    setControle = {setControle} 
+    setAdicionar = {setAdicionar}/>
             </Caixa>
             
         </>
