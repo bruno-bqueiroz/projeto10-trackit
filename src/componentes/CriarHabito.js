@@ -66,7 +66,7 @@ function Reservar({
         console.log(days);
         
         event.preventDefault();
-        if(habito.length>0){
+        if(habito.length>0 && days.length > 0){
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{   
             name: habito,
             days: days
@@ -83,8 +83,9 @@ function Reservar({
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
         })
 
-}else return alert("você deve dar um nome ao habito!")
-    
+}   else if (days.length > 0)return alert("você deve dar um nome ao habito!")
+    else if (habito.length > 0) return alert("você deve escolher pelo menos um dia para praticar o seu habito!")
+    else return alert ("você deve dar um nome e um dia para pratica do seu habito!")
 }
     return(
         <div>

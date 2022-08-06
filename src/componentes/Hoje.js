@@ -8,7 +8,6 @@ import UserContext from "../contexts/UserContext";
 import HabitoDoDia from "./HabitoDoDia";
 
 
-
 function HabitosDoDia(setPorcentagem){
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
@@ -89,12 +88,12 @@ function HabitosDoDia(setPorcentagem){
 
 
 export default function Hoje({foto, setFoto}){
-
+    
     return (
         <>
         <Topo foto= {foto} />
         <Container>    
-            <HabitosDoDia setFoto = {setFoto} />
+            <HabitosDoDia  setFoto = {setFoto} />
         </Container>
         <Menu  />
         </>
