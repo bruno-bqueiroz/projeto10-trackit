@@ -15,11 +15,18 @@ export default function HabitoDoDia({setIdHabitoFeito, setIdHabitoDesfeito, hoje
     return(
         <>{hoje.map ((value, index)=>
             <Habito key={index}>
+                {!value.currentSequence ===value.highestSequence || value.highestSequence === 0?
                 <Caixa1>
                     <h3>{value.name}</h3>
                     <p>Sequência atual:{value.currentSequence} dias</p>
                     <p>Seu recorde: {value.highestSequence} dias</p>
                 </Caixa1>
+                :
+                <Caixa2>
+                    <h3>{value.name}</h3>
+                    <p>Sequência atual:{value.currentSequence} dias</p>
+                    <p>Seu recorde: {value.highestSequence} dias</p>
+                </Caixa2>}
             {!value.done ?
             <Icone onClick={() => {marcarComoFeito(value.id)}}>
                 <ion-icon name="checkbox"></ion-icon>
@@ -79,6 +86,24 @@ justify-content: center;
 p{
     margin: 0;
     color: #666666;
+    font-size: 3vw;
+}
+`
+const Caixa2 = styled.div`
+width: 60%;
+height: 100%;
+padding-left: 10px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+    h3{
+    color: #666666;
+    font-weight: 500;
+    margin: 0;
+}
+p{
+    margin: 0;
+    color: #8FC549;
     font-size: 3vw;
 }
 `
