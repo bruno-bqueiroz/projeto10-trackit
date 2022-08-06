@@ -14,6 +14,8 @@ function HabitosDoDia(){
     const token = tasks.data.token;
     const [hoje, setHoje] = useState ([]); 
     const [idhabitoFeito, setIdHabitoFeito] = useState ('');
+    const [idhabitoDesfeito, setIdHabitoDesfeito] = useState ('');
+
     console.log(hoje);
 
     const [feito, setFeito] = useState(false);
@@ -47,7 +49,22 @@ function HabitosDoDia(){
                 }
             }
             const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idhabitoFeito}/check`,{},config);
-
+        requisicao.then(res =>{
+            console.log(res);
+        })
+        
+        requisicao.catch(erro=>{
+            console.log("Status code: " + erro.response.status); // Ex: 404
+	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
+        })
+        }
+        if (idhabitoDesfeito){
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idhabitoDesfeito}/uncheck`,{},config);
         requisicao.then(res =>{
             console.log(res);
         })
@@ -58,8 +75,6 @@ function HabitosDoDia(){
         })
         }
 
-    
-    
     return (
         <>
         <Dia>
@@ -70,7 +85,7 @@ function HabitosDoDia(){
             : <OK>67% dos hábitos concluídos</OK>
             }
         </Dia>
-        <HabitoDoDia setIdHabitoFeito = {setIdHabitoFeito} hoje = {hoje} token = {token}/>
+        <HabitoDoDia setIdHabitoFeito = {setIdHabitoFeito} setIdHabitoDesfeito = {setIdHabitoDesfeito} hoje = {hoje} token = {token}/>
         </>
     )
 }

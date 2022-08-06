@@ -3,10 +3,13 @@ import {useState, useEffect} from "react";
 import axios from "axios";
 
 
-export default function HabitoDoDia({setIdHabitoFeito, hoje}){
+export default function HabitoDoDia({setIdHabitoFeito, setIdHabitoDesfeito, hoje}){
     
     function marcarComoFeito(id){
         setIdHabitoFeito(id);
+    }
+    function desmarcarComoFeito(id){
+        setIdHabitoDesfeito(id);
     }
 
     return(
@@ -22,7 +25,7 @@ export default function HabitoDoDia({setIdHabitoFeito, hoje}){
                 <ion-icon name="checkbox"></ion-icon>
             </Icone>
             :
-            <IconeOk onClick={() => {marcarComoFeito(value.id)}}>
+            <IconeOk onClick={() => {desmarcarComoFeito(value.id)}}>
                 <ion-icon name="checkbox"></ion-icon>
             </IconeOk>
             }
