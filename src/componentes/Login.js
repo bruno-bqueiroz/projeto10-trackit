@@ -2,9 +2,9 @@ import styled from "styled-components";
 import {useState} from 'react';
 import axios from "axios";
 import {useNavigate} from 'react-router-dom';
-
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
+import { ThreeDots } from  'react-loader-spinner'
 
 
 function Reservar(){
@@ -42,7 +42,7 @@ function Reservar(){
         <form onSubmit={fazerReserva}>
 		        <input type="email" placeholder='email' value={email} required onChange={e => setEmail(e.target.value)} />
                 <input type="password" placeholder='senha' value={password} required onChange={e => setpassword(e.target.value)} />
-            <button type="submit">Entrar</button>
+            <button  type="submit">Entrar</button>
 		</form>
         </div>
     )
@@ -65,6 +65,16 @@ export default function Login(){
         </div>
         <Reservar />
         <p onClick={cadastrar}>Não tem uma conta? Cadastre-se!</p>
+        <ThreeDots 
+        height="80" 
+        width="80" 
+        radius="9"
+        color="#52B6FF" 
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClassName=""
+        visible={false}
+        />
         </ButtonComponent>
         
         </>

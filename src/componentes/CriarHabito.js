@@ -81,6 +81,7 @@ function Reservar({
         requisicao.catch(erro=>{
             console.log("Status code: " + erro.response.status); // Ex: 404
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
+            alert("erro ao tentar criar habito");
         })
 
 }   else if (days.length > 0)return alert("você deve dar um nome ao habito!")
