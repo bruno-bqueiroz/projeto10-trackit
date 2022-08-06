@@ -1,5 +1,10 @@
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import {
+    CircularProgressbar,
+    CircularProgressbarWithChildren,
+    buildStyles
+  } from "react-circular-progressbar";
+  import "react-circular-progressbar/dist/styles.css";
+  
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 
@@ -23,10 +28,20 @@ export default function Menu(porcentagem){
             <Menus>
                 <p onClick={habitos}>Hábitos</p>
                 <div onClick = {hoje}>
-                    <CircularProgressbar value={porcentagem.porcentagem} text={`Hoje`}  styles={{pathColor: `rgba(62, 152, 199, ${porcentagem.porcentagem})`,
-                    textColor: '#FFFFFF',
-                    trailColor: '#FFFFFF',
-                    backgroundColor: '#FFFFFF',}} />
+                    <CircularProgressbar
+                    value ={porcentagem.porcentagem} 
+                    text = {`Hoje`}
+                    
+                    background
+                    backgroundPadding={6}
+                    styles={buildStyles({
+                        backgroundColor: "#3e98c7",
+                        textColor: "#fff",
+                        pathColor: "#fff",
+                        trailColor: "transparent"
+                      })}
+
+                     />
                 </div>
                 <p onClick={historico}>Histórico</p>
             </Menus>
@@ -45,6 +60,7 @@ const Menus = styled.div`
     display: flex;
     justify-content: space-between;
     background-color: #FFFFFF;
+    z-index: 1;
     
     p{
         color: #52B6FF;
@@ -53,10 +69,11 @@ const Menus = styled.div`
     }
     div {
         position: fixed;
-        bottom: 30vw;
+        bottom: 1vh;
         left: 35vw;
         width: 30vw;
-        height: 20px;
+        height: auto;
+        z-index: 1;
     }
 
 `

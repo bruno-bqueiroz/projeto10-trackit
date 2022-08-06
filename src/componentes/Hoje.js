@@ -88,7 +88,7 @@ function HabitosDoDia({
             <h2>{dayjs().format('DD/MM')}</h2>
             {!porcentagem ?
             <p>Nenhum hábito concluído ainda</p>
-            : <OK>{porcentagem}% dos hábitos concluídos</OK>
+            : <OK>{porcentagem.toFixed(0)}% dos hábitos concluídos</OK>
             }
         </Dia>
         <HabitoDoDia setIdHabitoFeito = {setIdHabitoFeito} setIdHabitoDesfeito = {setIdHabitoDesfeito} hoje = {hoje} token = {token}/>
@@ -118,6 +118,7 @@ margin-top: 11vh;
 margin-bottom: 10vh;
 padding-left: 5vw;
 padding-right: 5vw;
+padding-bottom: 12vh;
 width: 100vw;
 height: auto;
 min-height: 79vh;
