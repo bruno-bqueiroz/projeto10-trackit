@@ -38,7 +38,7 @@ function HabitosDoDia(setPorcentagem){
         promise.then(res =>{
             setHoje(res.data);
         })
-    }, [])
+    }, [idhabitoFeito || idhabitoDesfeito])
         if (idhabitoFeito){
             const config = {
                 headers: {
@@ -54,7 +54,7 @@ function HabitosDoDia(setPorcentagem){
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found */
         })
         }
-        if (idhabitoDesfeito){
+        else if (idhabitoDesfeito){
             const config = {
                 headers: {
                     Authorization: `Bearer ${token}`
