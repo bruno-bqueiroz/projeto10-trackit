@@ -108,11 +108,6 @@ function Reservar({
     )
 }
 
-
-
-
-
-
 const Caixa1 = styled.div`
     width: 90vw;
     display: flex;

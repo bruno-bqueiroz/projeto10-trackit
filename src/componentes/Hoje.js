@@ -8,15 +8,19 @@ import UserContext from "../contexts/UserContext";
 import HabitoDoDia from "./HabitoDoDia";
 
 
-function HabitosDoDia(setPorcentagem){
+let contador = 0;
+function HabitosDoDia({
+    porcentagem,
+    setPorcentagem}){
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
     const [hoje, setHoje] = useState ([]); 
+    
     const [idhabitoFeito, setIdHabitoFeito] = useState ('');
     const [idhabitoDesfeito, setIdHabitoDesfeito] = useState ('');
 
  
-    /* ((feitos/hoje.length)*100) */
+   
     
 
     const dayjs = require('dayjs');
@@ -27,6 +31,7 @@ function HabitosDoDia(setPorcentagem){
     
 
     useEffect(()=>{
+        contador = 0;
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -36,6 +41,12 @@ function HabitosDoDia(setPorcentagem){
         );
         promise.then(res =>{
             setHoje(res.data);
+            res.data.map((value)=>{
+                if (value.done){
+                    contador += 1;
+                }
+            })
+            setPorcentagem((contador/hoje.length)*100);
         })
     }, [idhabitoFeito || idhabitoDesfeito])
         if (idhabitoFeito){
@@ -75,9 +86,9 @@ function HabitosDoDia(setPorcentagem){
         <Dia>
         
             <h2>{dayjs().format('DD/MM')}</h2>
-            {!true ?
+            {!porcentagem ?
             <p>Nenhum hábito concluído ainda</p>
-            : <OK>67% dos hábitos concluídos</OK>
+            : <OK>{porcentagem}% dos hábitos concluídos</OK>
             }
         </Dia>
         <HabitoDoDia setIdHabitoFeito = {setIdHabitoFeito} setIdHabitoDesfeito = {setIdHabitoDesfeito} hoje = {hoje} token = {token}/>
@@ -88,14 +99,15 @@ function HabitosDoDia(setPorcentagem){
 
 
 export default function Hoje({foto, setFoto}){
-    
+    const [porcentagem, setPorcentagem] = useState (contador);
     return (
         <>
         <Topo foto= {foto} />
         <Container>    
-            <HabitosDoDia  setFoto = {setFoto} />
+            <HabitosDoDia porcentagem = {porcentagem}
+            setPorcentagem = {setPorcentagem} setFoto = {setFoto} />
         </Container>
-        <Menu  />
+        <Menu  porcentagem = {porcentagem}/>
         </>
     )
 }

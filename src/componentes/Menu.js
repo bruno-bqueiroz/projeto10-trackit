@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 
 
-export default function Menu(){
-    const percentage = 6;
+export default function Menu(porcentagem){
+  console.log(porcentagem);
     const navigate = useNavigate();
 
     function habitos(){
@@ -23,7 +23,7 @@ export default function Menu(){
             <Menus>
                 <p onClick={habitos}>Hábitos</p>
                 <div onClick = {hoje}>
-                    <CircularProgressbar value={percentage} text={`Hoje`}  styles={{pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                    <CircularProgressbar value={porcentagem.porcentagem} text={`Hoje`}  styles={{pathColor: `rgba(62, 152, 199, ${porcentagem.porcentagem})`,
                     textColor: '#FFFFFF',
                     trailColor: '#FFFFFF',
                     backgroundColor: '#FFFFFF',}} />
