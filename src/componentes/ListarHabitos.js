@@ -112,7 +112,8 @@ export default function ListarHabitos ({
 
     return (
         <>
-        {listaDeHabitos.map ((valor, index)=>
+        {listaDeHabitos.length === 0 ? <b>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</b>:
+        listaDeHabitos.map ((valor, index)=>
         <Habito key={index}>
             <Caixa1>
             <h2>{valor.name}</h2>
@@ -123,7 +124,7 @@ export default function ListarHabitos ({
             </Caixa1>
             <Icone onClick={() => {deletarHabito(valor.id)}} > <ion-icon name="trash-outline"></ion-icon> </Icone>
         </Habito>
-        )}
+            )}
         </>
     )
 }

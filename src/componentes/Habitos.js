@@ -10,6 +10,7 @@ import ListarHabitos from "./ListarHabitos";
 export default function Habitos(){
     const [adicionar, setAdicionar] = useState(false);
     const [controle, setControle] = useState (true);
+    
 
     function click(){
         setAdicionar(true);
@@ -26,7 +27,7 @@ export default function Habitos(){
                     </Icone>
                 </Cabecalho>
                 {adicionar ? <CriarHabito controle= {controle} setControle = {setControle} setAdicionar = {setAdicionar}/> : ''}
-                 <b>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</b>
+                 
                 <ListarHabitos  controle= {controle} setControle = {setControle}/>
                 
     </Container>

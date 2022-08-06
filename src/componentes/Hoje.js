@@ -5,15 +5,25 @@ import {useState, useEffect} from "react";
 import axios from "axios";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
+import HabitoDoDia from "./HabitoDoDia";
 
 
 
 function HabitosDoDia(){
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
+    const [hoje, setHoje] = useState ([]); 
+    const [idhabitoFeito, setIdHabitoFeito] = useState ('');
+    console.log(hoje);
 
     const [feito, setFeito] = useState(false);
     const dayjs = require('dayjs');
+
+    var weekday = require('dayjs/plugin/weekday')
+    dayjs.extend(weekday)
+
+    /* console.log(dayjs().weekday(6)); */
+    
 
     useEffect(()=>{
         const config = {
@@ -26,42 +36,41 @@ function HabitosDoDia(){
         );
         promise.then(res =>{
             console.log(res.data);
+            setHoje(res.data);
         })
 
     }, [])
-    
-    function click(){
-        setFeito(!feito)
-    }
+        if (idhabitoFeito){
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+            const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idhabitoFeito}/check`,{},config);
+
+        requisicao.then(res =>{
+            console.log(res);
+        })
+        
+        requisicao.catch(erro=>{
+            console.log("Status code: " + erro.response.status); // Ex: 404
+	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
+        })
+        }
+
     
     
     return (
         <>
         <Dia>
         
-            <h2>Sexta, {dayjs().format('DD/MM')}</h2>
+            <h2>{dayjs().format('DD/MM')}</h2>
             {!feito ?
             <p>Nenhum hábito concluído ainda</p>
             : <OK>67% dos hábitos concluídos</OK>
             }
         </Dia>
-        <Habito>
-            <Caixa1>
-            <h3>Ler 1 capítulo de livro</h3>
-            <p>Sequência atual: 3 dias</p>
-            <p>Seu recorde: 5 dias</p>
-            </Caixa1>
-            {!feito ?
-            <Icone onClick={click}>
-                <ion-icon name="checkbox"></ion-icon>
-            </Icone>
-            :
-            <IconeOk onClick={click}>
-                <ion-icon name="checkbox"></ion-icon>
-            </IconeOk>
-            }
-        </Habito>
-        
+        <HabitoDoDia setIdHabitoFeito = {setIdHabitoFeito} hoje = {hoje} token = {token}/>
         </>
     )
 }
@@ -86,51 +95,7 @@ const Dia = styled.div`
         color: #BABABA;
     }
 `
-const Habito = styled.div`
-    width: 100%;
-    height: 15vh;
-    margin-top: 3vh;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: space-around;
-    
-`
-const Icone = styled.div`
-    width: 15vh;
-    height: 15vh;
-    ion-icon {
-    color: #E7E7E7;
-    width: 100%;
-    height: 100%;
-    }
-`
-const IconeOk = styled.div`
-    width: 15vh;
-    height: 15vh;
-    ion-icon {
-    color: #8FC549;
-    width: 100%;
-    height: 100%;
-    }
-`
-const Caixa1 = styled.div`
-width: 60%;
-height: 100%;
-padding-left: 10px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-    h3{
-    color: #666666;
-    font-weight: 500;
-    margin: 0;
-}
-p{
-    margin: 0;
-    color: #666666;
-    font-size: 3vw;
-}
-`
+
 const OK = styled.b`
     margin: 0;
     color: #8FC549;

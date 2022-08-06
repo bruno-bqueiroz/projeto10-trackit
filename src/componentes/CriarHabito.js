@@ -50,6 +50,7 @@ function Reservar({
 
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
+    console.log(token)
 
 
     function fecharCard(){
@@ -77,15 +78,11 @@ function Reservar({
             
             
         })
-        requisicao.catch(tratarErro);
-        
-
-        
-
-        function tratarErro(erro) {
+        requisicao.catch(erro=>{
             console.log("Status code: " + erro.response.status); // Ex: 404
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
-}
+        })
+
 }else return alert("você deve dar um nome ao habito!")
     
 }
