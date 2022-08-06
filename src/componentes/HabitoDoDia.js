@@ -53,6 +53,7 @@ const Icone = styled.div`
     width: 100%;
     height: 100%;
     }
+    
 `
 const IconeOk = styled.div`
     width: 15vh;

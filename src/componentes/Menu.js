@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Menu(){
-    const percentage = 67;
+    const percentage = 6;
     const navigate = useNavigate();
 
     function habitos(){

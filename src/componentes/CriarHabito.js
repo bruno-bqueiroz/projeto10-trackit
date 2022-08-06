@@ -46,11 +46,11 @@ function Reservar({
 }){
     const [habito, setHabito] = useState("");
     const [days, setDays] = useState([]);
-    console.log(days);
+    /* console.log(days); */
 
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
-    console.log(token)
+    /* console.log(token) */
 
 
     function fecharCard(){
