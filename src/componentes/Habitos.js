@@ -42,6 +42,7 @@ padding-top: 1vh;
 margin-bottom: 10vh;
 padding-left: 5vw;
 padding-right: 5vw;
+padding-bottom: 8vh;
 width: 100vw;
 height: auto;
 min-height: 79vh;

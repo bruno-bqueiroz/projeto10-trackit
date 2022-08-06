@@ -48,6 +48,9 @@ function HabitosDoDia({
             })
             setPorcentagem((contador/hoje.length)*100);
         })
+        promise.catch(erro=>{
+            console.log(erro)
+         })
     }, [idhabitoFeito || idhabitoDesfeito])
         if (idhabitoFeito){
             const config = {
