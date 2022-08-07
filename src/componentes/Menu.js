@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function Menu(porcentagem){
-  console.log(porcentagem);
+  /* console.log(porcentagem); */
     const navigate = useNavigate();
 
     function habitos(){

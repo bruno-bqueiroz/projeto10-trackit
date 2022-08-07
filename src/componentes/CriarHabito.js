@@ -11,7 +11,7 @@ import UserContext from "../contexts/UserContext";
 const diasDaSemana = [
     {
     nome : "D",
-    numero : 7
+    numero : 0
     },
     {
     nome : "S",

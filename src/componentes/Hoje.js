@@ -18,9 +18,6 @@ function HabitosDoDia({
     
     const [idhabitoFeito, setIdHabitoFeito] = useState ('');
     const [idhabitoDesfeito, setIdHabitoDesfeito] = useState ('');
-
- 
-   
     
 
     const dayjs = require('dayjs');
@@ -40,6 +37,7 @@ function HabitosDoDia({
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config
         );
         promise.then(res =>{
+            console.log(res);
             setHoje(res.data);
             res.data.map((value)=>{
                 if (value.done){
@@ -60,11 +58,10 @@ function HabitosDoDia({
             }
             const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idhabitoFeito}/check`,{},config);
         requisicao.then(res =>{
-/*             console.log(res);
- */        })
+             console.log(res);        })
         requisicao.catch(erro=>{
-           /*  console.log("Status code: " + erro.response.status); // Ex: 404
-	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found */
+          console.log("Status code: " + erro.response.status); // Ex: 404
+	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found 
         })
         }
         else if (idhabitoDesfeito){
@@ -75,12 +72,12 @@ function HabitosDoDia({
             }
             const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idhabitoDesfeito}/uncheck`,{},config);
         requisicao.then(res =>{
-           /*  console.log(res); */
+            console.log(res); 
         })
         
         requisicao.catch(erro=>{
-            /* console.log("Status code: " + erro.response.status); // Ex: 404
-	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found */
+            console.log("Status code: " + erro.response.status); // Ex: 404
+	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
         })
         }
 
@@ -108,7 +105,7 @@ export default function Hoje({foto, setFoto}){
         <Topo foto= {foto} />
         <Container>    
             <HabitosDoDia porcentagem = {porcentagem}
-            setPorcentagem = {setPorcentagem} setFoto = {setFoto} />
+            setPorcentagem = {setPorcentagem} />
         </Container>
         <Menu  porcentagem = {porcentagem}/>
         </>
