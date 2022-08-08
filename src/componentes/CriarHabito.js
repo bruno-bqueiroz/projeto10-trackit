@@ -47,11 +47,10 @@ function Reservar({
 }){
     const [habito, setHabito] = useState("");
     const [days, setDays] = useState([]);
-    /* console.log(days); */
-
+   
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
-    /* console.log(token) */
+    
     const [habilitado, setHabilitado] = useState(false)
 
 
@@ -65,7 +64,6 @@ function Reservar({
     }
     
     function fazerReserva(event){
-        console.log(days);
         setHabilitado(true)
         
         event.preventDefault();
@@ -75,14 +73,10 @@ function Reservar({
             days: days
         },config);
         requisicao.then(res =>{
-            console.log(res);
             setAdicionar(false);
             setControle(!controle)
-            
-            
         })
         requisicao.catch(erro=>{
-            console.log("Status code: " + erro.response.status); // Ex: 404
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
             alert("erro ao tentar criar habito");
             setHabilitado(false)

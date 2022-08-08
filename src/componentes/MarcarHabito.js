@@ -22,9 +22,6 @@ export default function MarcarHabito({
     const dayjs = require('dayjs');
     dayjs.locale('pt-br') 
     
-
-    /* console.log(dayjs().weekday(6)); */
-    
     useEffect(()=>{
         contador = 0;
         const config = {

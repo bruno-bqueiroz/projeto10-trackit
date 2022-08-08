@@ -30,7 +30,6 @@ function Reservar({setCor}){
         });
 
         function tratarErro(erro) {
-            console.log("Status code: " + erro.response.status); // Ex: 404
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
             alert("erro ao fazer login");
             setHabilitado(false)
