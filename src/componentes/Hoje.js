@@ -16,15 +16,15 @@ function HabitosDoDia({
     controle,
     setControle
 }){
+    
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
     const [idhabitoFeito, setIdHabitoFeito] = useState ('');
     const [idhabitoDesfeito, setIdHabitoDesfeito] = useState ('');
     
-    
     const dayjs = require('dayjs');
-    var weekday = require('dayjs/plugin/weekday')
-    dayjs.extend(weekday)
+    dayjs.locale('pt-br') 
+    
 
     /* console.log(dayjs().weekday(6)); */
     
@@ -87,7 +87,7 @@ function HabitosDoDia({
         <>
         <Dia>
         
-            <h2>{dayjs().format('DD/MM')}</h2>
+            <h2>{dayjs().format('dddd DD/MM')}</h2>
             {!porcentagem ?
             <p>Nenhum hábito concluído ainda</p>
             : <OK>{porcentagem.toFixed(0)}% dos hábitos concluídos</OK>
@@ -98,11 +98,13 @@ function HabitosDoDia({
     )
 }
 
-export default function Hoje({foto, setPorcentagem, porcentagem}){
+export default function Hoje({foto, setPorcentagem, porcentagem, contador, setContador}){
+
     const [hoje, setHoje] = useState ([]); 
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
     const [controle, setControle] = useState (true)
+    
 
     return (
         <>

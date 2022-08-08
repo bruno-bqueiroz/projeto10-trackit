@@ -10,10 +10,10 @@ import UserContext from "../contexts/UserContext";
 
 
 
-let contador
+
 export default function App(){
     const [tasks, setTasks] = useState([]);
-    const [porcentagem, setPorcentagem] = useState (contador = 0);
+    const [porcentagem, setPorcentagem] = useState ();
     return (
         <>
         <GlobalStyle/>
