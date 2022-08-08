@@ -7,14 +7,15 @@ import UserContext from "../contexts/UserContext";
 import { ThreeDots } from  'react-loader-spinner'
 
 
-function Reservar(){
+function Reservar({setCor}){
     const [email, setEmail] = useState("");
 	const [password, setpassword] = useState("");
     const { tasks, setTasks } = useContext(UserContext);
     
+    const [habilitado, setHabilitado] = useState(false)
     const navigate = useNavigate();
     function fazerReserva(event){
-        
+         
         event.preventDefault();
         const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",{
             email: email,
@@ -25,7 +26,6 @@ function Reservar(){
 
         requisicao.then((res) =>{
             setTasks(res);
-            
             navigate('/hoje');
         });
 
@@ -33,16 +33,28 @@ function Reservar(){
             console.log("Status code: " + erro.response.status); // Ex: 404
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
             alert("erro ao fazer login");
+            setHabilitado(false)
+            
         }
     }
-
 
     return(
         <div>
         <form onSubmit={fazerReserva}>
-		        <input type="email" placeholder='email' value={email} required onChange={e => setEmail(e.target.value)} />
-                <input type="password" placeholder='senha' value={password} required onChange={e => setpassword(e.target.value)} />
-            <button  type="submit">Entrar</button>
+		        <input disabled={habilitado} type="email" placeholder='email' value={email} required onChange={e => setEmail(e.target.value)} />
+                <input disabled={habilitado} type="password" placeholder='senha' value={password} required onChange={e => setpassword(e.target.value)} />
+                <button onClick={()=> {setHabilitado(true)}}  type="submit" > 
+            {!habilitado ?<h2>Entrar</h2> : <ThreeDots 
+        height="80" 
+        width="80" 
+        radius="9"
+        color="#FFFFFF" 
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClassName=""
+        />}
+
+             </button>
 		</form>
         </div>
     )
@@ -54,7 +66,7 @@ export default function Login(){
 
     function cadastrar(){
         navigate('/cadastro');
-    } 
+    }
 
     return (
         <>
@@ -65,22 +77,13 @@ export default function Login(){
         </div>
         <Reservar />
         <p onClick={cadastrar}>Não tem uma conta? Cadastre-se!</p>
-        <ThreeDots 
-        height="80" 
-        width="80" 
-        radius="9"
-        color="#52B6FF" 
-        ariaLabel="three-dots-loading"
-        wrapperStyle={{}}
-        wrapperClassName=""
-        visible={true}
-        />
         
         </ButtonComponent>
         
         </>
     )
 }
+
 
 const ButtonComponent = styled.div`
     width: 100vw;
@@ -110,6 +113,9 @@ const ButtonComponent = styled.div`
         button{
             width: 90%;
             height: 7vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
            background-color: #52B6FF;
            border: solid #52B6FF 1px;
            border-radius: 7px;

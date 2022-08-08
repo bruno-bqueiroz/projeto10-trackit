@@ -31,7 +31,6 @@ export default function Menu(porcentagem){
                     <CircularProgressbar
                     value ={porcentagem.porcentagem} 
                     text = {`Hoje`}
-                    
                     background
                     backgroundPadding={6}
                     styles={buildStyles({

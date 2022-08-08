@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {useState} from 'react';
 import axios from "axios";
 import {useNavigate} from 'react-router-dom';
+import { ThreeDots } from  'react-loader-spinner'
 
 
 function Reservar(){
@@ -9,7 +10,7 @@ function Reservar(){
 	const [password, setPassword] = useState("");
     const [nome, setNome] = useState("");
     const [foto, setFoto] = useState("");
-
+    const [habilitado, setHabilitado] = useState(false)
     
     function fazerReserva(event){
 
@@ -35,6 +36,7 @@ function Reservar(){
             console.log("Status code: " + erro.response.status); // Ex: 404
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
             alert("erro ao fazer cadastro");
+            setHabilitado(false)
         }
     }
 
@@ -42,11 +44,23 @@ function Reservar(){
     return(
         <div>
         <form onSubmit={fazerReserva}>
-		        <input type="email" placeholder='email' value={email} onChange={e => setEmail(e.target.value)} />
-                <input type="password" placeholder='senha' value={password} onChange={e => setPassword(e.target.value)} />
-                <input type="nome" placeholder='nome' value={nome} onChange={e => setNome(e.target.value)} />
-                <input type="foto" placeholder='foto' value={foto} onChange={e => setFoto(e.target.value)} />
-            <button type="submit">Cadastrar</button>
+		        <input disabled={habilitado} type="email" placeholder='email' value={email} onChange={e => setEmail(e.target.value)} />
+                <input disabled={habilitado} type="password" placeholder='senha' value={password} onChange={e => setPassword(e.target.value)} />
+                <input disabled={habilitado} type="nome" placeholder='nome' value={nome} onChange={e => setNome(e.target.value)} />
+                <input disabled={habilitado} type="foto" placeholder='foto' value={foto} onChange={e => setFoto(e.target.value)} />
+            <button type="submit" onClick={()=> {setHabilitado(true)}} >
+                
+            {!habilitado ? <h2>Cadastrar</h2> : <ThreeDots 
+        height="80" 
+        width="80" 
+        radius="9"
+        color="#FFFFFF" 
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClassName=""
+        />}
+            
+            </button>
 		</form>
         </div>
     )
@@ -98,6 +112,9 @@ const ButtonComponent = styled.div`
         button{
             width: 90%;
             height: 7vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
            background-color: #52B6FF;
            border: solid #52B6FF 1px;
            border-radius: 7px;

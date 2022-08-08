@@ -10,9 +10,10 @@ import UserContext from "../contexts/UserContext";
 
 
 
+let contador
 export default function App(){
     const [tasks, setTasks] = useState([]);
-    
+    const [porcentagem, setPorcentagem] = useState (contador = 0);
     return (
         <>
         <GlobalStyle/>
@@ -20,10 +21,10 @@ export default function App(){
         <BrowserRouter>
             <Routes>
                 <Route path='/' element = {<Login />}/>
-                <Route path='/cadastro' element = {<Cadastro />}/>
-                <Route path='/hoje' element = {<Hoje />}/>
-                <Route path='/habitos' element = {<Habitos />}/>
-                <Route path='/historico' element = {<Historico />}/>
+                <Route path='/cadastro' element = {<Cadastro  />}/>
+                <Route path='/hoje' element = {<Hoje porcentagem = {porcentagem} setPorcentagem = {setPorcentagem}/>}/>
+                <Route path='/habitos' element = {<Habitos porcentagem = {porcentagem}/>}/>
+                <Route path='/historico' element = {<Historico porcentagem = {porcentagem} />}/>
             </Routes>
         </BrowserRouter>
         </UserContext.Provider>

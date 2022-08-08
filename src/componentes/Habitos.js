@@ -7,7 +7,7 @@ import ListarHabitos from "./ListarHabitos";
 
 
 
-export default function Habitos(){
+export default function Habitos({porcentagem}){
     const [adicionar, setAdicionar] = useState(false);
     const [controle, setControle] = useState (true);
     
@@ -31,7 +31,7 @@ export default function Habitos(){
                 <ListarHabitos  controle= {controle} setControle = {setControle}/>
                 
     </Container>
-        <Menu />
+        <Menu porcentagem = {porcentagem}/>
         </>
     )
 }

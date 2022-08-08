@@ -7,26 +7,27 @@ import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 import HabitoDoDia from "./HabitoDoDia";
 
-
 let contador = 0;
 function HabitosDoDia({
     porcentagem,
-    setPorcentagem}){
+    setPorcentagem,
+    setHoje,
+    hoje,
+    controle,
+    setControle
+}){
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
-    const [hoje, setHoje] = useState ([]); 
-    
     const [idhabitoFeito, setIdHabitoFeito] = useState ('');
     const [idhabitoDesfeito, setIdHabitoDesfeito] = useState ('');
     
-
+    
     const dayjs = require('dayjs');
     var weekday = require('dayjs/plugin/weekday')
     dayjs.extend(weekday)
 
     /* console.log(dayjs().weekday(6)); */
     
-
     useEffect(()=>{
         contador = 0;
         const config = {
@@ -37,7 +38,6 @@ function HabitosDoDia({
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config
         );
         promise.then(res =>{
-            console.log(res);
             setHoje(res.data);
             res.data.map((value)=>{
                 if (value.done){
@@ -49,7 +49,8 @@ function HabitosDoDia({
         promise.catch(erro=>{
             console.log(erro)
          })
-    }, [idhabitoFeito || idhabitoDesfeito])
+    }, [controle])
+    
         if (idhabitoFeito){
             const config = {
                 headers: {
@@ -58,10 +59,11 @@ function HabitosDoDia({
             }
             const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idhabitoFeito}/check`,{},config);
         requisicao.then(res =>{
-             console.log(res);        })
+             setControle(!controle);
+             idhabitoFeito = "";
+            })
         requisicao.catch(erro=>{
           console.log("Status code: " + erro.response.status); // Ex: 404
-	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found 
         })
         }
         else if (idhabitoDesfeito){
@@ -72,15 +74,15 @@ function HabitosDoDia({
             }
             const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idhabitoDesfeito}/uncheck`,{},config);
         requisicao.then(res =>{
-            console.log(res); 
+            
+            setControle(!controle);
+            idhabitoDesfeito = "";
         })
         
         requisicao.catch(erro=>{
-            console.log("Status code: " + erro.response.status); // Ex: 404
-	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
+           /*  console.log("Status code: " + erro.response.status); // Ex: 404 */
         })
         }
-
     return (
         <>
         <Dia>
@@ -96,18 +98,20 @@ function HabitosDoDia({
     )
 }
 
+export default function Hoje({foto, setPorcentagem, porcentagem}){
+    const [hoje, setHoje] = useState ([]); 
+    const { tasks, setTasks } = useContext(UserContext);
+    const token = tasks.data.token;
+    const [controle, setControle] = useState (true)
 
-
-export default function Hoje({foto, setFoto}){
-    const [porcentagem, setPorcentagem] = useState (contador);
     return (
         <>
         <Topo foto= {foto} />
         <Container>    
-            <HabitosDoDia porcentagem = {porcentagem}
+            <HabitosDoDia controle = {controle} setControle = {setControle} hoje = {hoje} setHoje = {setHoje} porcentagem = {porcentagem}
             setPorcentagem = {setPorcentagem} />
         </Container>
-        <Menu  porcentagem = {porcentagem}/>
+        <Menu porcentagem = {porcentagem} />
         </>
     )
 }

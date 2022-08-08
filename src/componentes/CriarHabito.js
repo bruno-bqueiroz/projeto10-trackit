@@ -4,6 +4,7 @@ import Dias from "./Dias";
 import axios from "axios";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
+import { ThreeDots } from  'react-loader-spinner'
 
 
 
@@ -51,6 +52,7 @@ function Reservar({
     const { tasks, setTasks } = useContext(UserContext);
     const token = tasks.data.token;
     /* console.log(token) */
+    const [habilitado, setHabilitado] = useState(false)
 
 
     function fecharCard(){
@@ -64,6 +66,7 @@ function Reservar({
     
     function fazerReserva(event){
         console.log(days);
+        setHabilitado(true)
         
         event.preventDefault();
         if(habito.length>0 && days.length > 0){
@@ -82,19 +85,26 @@ function Reservar({
             console.log("Status code: " + erro.response.status); // Ex: 404
 	        console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
             alert("erro ao tentar criar habito");
+            setHabilitado(false)
         })
 
-}   else if (days.length > 0)return alert("você deve dar um nome ao habito!")
-    else if (habito.length > 0) return alert("você deve escolher pelo menos um dia para praticar o seu habito!")
-    else return alert ("você deve dar um nome e um dia para pratica do seu habito!")
-}
+}   else if (days.length > 0){
+    setHabilitado(false)
+    return alert("você deve dar um nome ao habito!")
+}else if (habito.length > 0) {
+    setHabilitado(false)
+    return alert("você deve escolher pelo menos um dia para praticar o seu habito!")
+ } else {
+    setHabilitado(false)
+    return alert ("você deve dar um nome e um dia para pratica do seu habito!")
+ }}
     return(
         <div>
         <form  >
 		        <input type="text" placeholder='nome do hábito' value={habito} required onChange={e => setHabito(e.target.value)} />
-                <Caixa1>
+                <Caixa1 disabled={habilitado}>
                 {diasDaSemana.map ((value, index)=>
-                    <Dias key={index} dia = {value.nome} numero = {value.numero}
+                    <Dias  key={index} dia = {value.nome} numero = {value.numero}
                     days = {days} setDays = {setDays} type="text"
                      value={days} onChange={e => setDays(e.target.value)} />
                     )}
@@ -102,7 +112,18 @@ function Reservar({
             
             <Botoes>
             <Botao1 type = "button" onClick={fecharCard}>Cancelar</Botao1>
-            <Botao2 type="submit" onClick={fazerReserva}>Salvar</Botao2>
+            <Botao2 type="submit" onClick={fazerReserva}>
+            
+            {!habilitado ?<h3>Salvar</h3> : <ThreeDots 
+        height="60" 
+        width="60" 
+        radius="9"
+        color="#FFFFFF" 
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{}}
+        wrapperClassName=""
+        />}
+            </Botao2>
             </Botoes>
         </form>
         </div>
@@ -149,6 +170,9 @@ const Botao2 = styled.button`
    background-color: #52B6FF;
    border: solid #52B6FF 1px;
    border-radius: 7px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
    font-size: 5vw;
    color: #FFFFFF;
 &:hover{

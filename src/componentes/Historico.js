@@ -2,7 +2,7 @@ import Topo from "./Topo";
 import Menu from "./Menu";
 import styled from "styled-components";
 
-export default function Historico(){
+export default function Historico( {porcentagem}){
     return (
         <>
         <Topo />
@@ -10,7 +10,7 @@ export default function Historico(){
                 <h2>Historico</h2>
                 <b>Em breve você poderá ver o histórico dos seus hábitos aqui!</b>
             </Container>
-        <Menu />
+        <Menu porcentagem = {porcentagem} />
         </>
     )
 }
