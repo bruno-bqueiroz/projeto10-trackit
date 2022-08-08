@@ -4,14 +4,14 @@ import {
     buildStyles
   } from "react-circular-progressbar";
   import "react-circular-progressbar/dist/styles.css";
-  
+  import UserContext from "../contexts/UserContext";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
-
-
-export default function Menu(porcentagem){
+import { useContext } from "react";
+export default function Menu(){
+    const { porcentagem} = useContext(UserContext);
   /* console.log(porcentagem); */
-    const navigate = useNavigate();
+    const navigate =  useNavigate();
 
     function habitos(){
         navigate('/habitos');
@@ -29,7 +29,7 @@ export default function Menu(porcentagem){
                 <p onClick={habitos}>Hábitos</p>
                 <div onClick = {hoje}>
                     <CircularProgressbar
-                    value ={porcentagem.porcentagem} 
+                    value ={porcentagem} 
                     text = {`Hoje`}
                     background
                     backgroundPadding={6}
@@ -65,6 +65,7 @@ const Menus = styled.div`
         color: #52B6FF;
         font-weight:400;
         font-size: 3vh;
+        
     }
     div {
         position: fixed;

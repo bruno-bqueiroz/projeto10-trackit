@@ -38,6 +38,9 @@ const Dia = styled.div`
     background-color: #FFFFFF;
     border: solid 1px #D4D4D4;
     border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
     font-size: 6vw;
     background: ${(props) => props.color};

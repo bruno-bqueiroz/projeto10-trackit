@@ -1,11 +1,11 @@
 import styled from "styled-components"
 import Menu from "./Menu";
 import Topo from "./Topo";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import MarcarHabito from "./MarcarHabito";
 
 
-export default function Hoje({foto, setPorcentagem, porcentagem, contador, setContador}){
+export default function Hoje({foto}){
 
     const [hoje, setHoje] = useState ([]);
     const [controle, setControle] = useState (true)
@@ -16,10 +16,9 @@ export default function Hoje({foto, setPorcentagem, porcentagem, contador, setCo
         <Topo foto= {foto} />
         <Container>    
             <MarcarHabito controle = {controle} setControle = {setControle} 
-            hoje = {hoje} setHoje = {setHoje} porcentagem = {porcentagem}
-            setPorcentagem = {setPorcentagem} />
+            hoje = {hoje} setHoje = {setHoje} />
         </Container>
-        <Menu porcentagem = {porcentagem} />
+        <Menu />
         </>
     )
 }

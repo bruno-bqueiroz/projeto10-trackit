@@ -132,6 +132,7 @@ function Reservar({
 
 const Caixa1 = styled.div`
     width: 90vw;
+    height: auto;
     display: flex;
     justify-content: flex-start;
 `
@@ -204,7 +205,8 @@ export default function CriarHabito({setAdicionar,
 const Caixa = styled.div`
 box-sizing: border-box;
     width: 90vw;
-    height: 25vh;
+    min-height: 25vh;
+    height: auto;
     margin-top: 3vh;
     margin-bottom: 3vh;
     padding-top: 2vw;
@@ -212,6 +214,7 @@ box-sizing: border-box;
     background-color: #FFFFFF;
     border-radius: 2vw;
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
 

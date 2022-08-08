@@ -8,15 +8,13 @@ import HabitoDoDia from "./HabitoDoDia";
 
 let contador = 0;
 export default function MarcarHabito({
-    porcentagem,
-    setPorcentagem,
     setHoje,
     hoje,
     controle,
     setControle
 }){
     
-    const { tasks, setTasks } = useContext(UserContext);
+    const { tasks, setTasks, porcentagem, setPorcentagem } = useContext(UserContext);
     const token = tasks.data.token;
     const [idhabitoFeito, setIdHabitoFeito] = useState ('');
     const [idhabitoDesfeito, setIdHabitoDesfeito] = useState ('');
@@ -43,8 +41,10 @@ export default function MarcarHabito({
                     contador += 1;
                 }
             })
+            if (100>contador > 0){
             setPorcentagem((contador/hoje.length)*100);
-        })
+            contador = 0;
+        }})
         promise.catch(erro=>{
             console.log(erro)
          })
@@ -85,7 +85,7 @@ export default function MarcarHabito({
         <Dia>
         
             <h2>{dayjs().format('dddd DD/MM')}</h2>
-            {!porcentagem ?
+            {!porcentagem || 0> porcentagem > 100 ?
             <p>Nenhum hábito concluído ainda</p>
             : <OK>{porcentagem.toFixed(0)}% dos hábitos concluídos</OK>
             }

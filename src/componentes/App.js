@@ -17,12 +17,12 @@ export default function App(){
     return (
         <>
         <GlobalStyle/>
-        <UserContext.Provider value={{tasks, setTasks}}>
+        <UserContext.Provider value={{tasks, setTasks, porcentagem, setPorcentagem}}>
         <BrowserRouter>
             <Routes>
                 <Route path='/' element = {<Login />}/>
                 <Route path='/cadastro' element = {<Cadastro  />}/>
-                <Route path='/hoje' element = {<Hoje porcentagem = {porcentagem} setPorcentagem = {setPorcentagem}/>}/>
+                <Route path='/hoje' element = {<Hoje />}/>
                 <Route path='/habitos' element = {<Habitos porcentagem = {porcentagem}/>}/>
                 <Route path='/historico' element = {<Historico porcentagem = {porcentagem} />}/>
             </Routes>
